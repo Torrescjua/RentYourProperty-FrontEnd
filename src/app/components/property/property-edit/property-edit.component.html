@@ -1,0 +1,98 @@
+<div class="search-container">
+    <h2>Buscar Propiedad</h2>
+    <input type="text" [(ngModel)]="searchQuery" placeholder="Buscar por nombre o municipio" name="search" />
+    <button (click)="searchProperties()">Buscar</button>
+</div>
+
+<div class="form-container">
+    <h1>Actualizar Propiedad</h1>
+    <form (ngSubmit)="onSubmit()">
+        <div class="form-row">
+            <div class="form-group">
+                <label>Nombre:</label>
+                <input [(ngModel)]="property.name" name="name" required />
+            </div>
+            <div class="form-group">
+                <label>Ubicación:</label>
+                <input [(ngModel)]="property.location" name="location" required />
+            </div>
+            <div class="form-group">
+                <label>Descripción:</label>
+                <textarea [(ngModel)]="property.description" name="description" required></textarea>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Foto:</label>
+                <input [(ngModel)]="property.photoUrl" name="photoUrl" required />
+            </div>
+            <div class="form-group">
+                <label>Departamento:</label>
+                <input [(ngModel)]="property.department" name="department" required />
+            </div>
+            <div class="form-group">
+                <label>Municipio:</label>
+                <input [(ngModel)]="property.municipality" name="municipality" required />
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group three-columns">
+                <label for="incomeType">Tipo de Ingreso:</label>
+                <select [(ngModel)]="property.incomeType" name="incomeType">
+                    <option [value]="Income.MUNICIPIO">Municipio</option>
+                    <option [value]="Income.CARRETERA_PRINCIPAL">Carretera Principal</option>
+                    <option [value]="Income.CARRETERA_SECUNDARIO">Carretera Secundaria</option>
+                    <option [value]="Income.CARRETERA_TERCIARIA">Carretera Terciaria</option>
+                </select>
+            </div>
+            <div class="form-group three-columns">
+                <label>Habitaciones:</label>
+                <input [(ngModel)]="property.rooms" type="number" name="rooms" required />
+            </div>
+            <div class="form-group three-columns">
+                <label>Baños:</label>
+                <input [(ngModel)]="property.bathrooms" type="number" name="bathrooms" required />
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Permite Mascotas:</label>
+                <input [(ngModel)]="property.allowsPets" type="checkbox" name="allowsPets" />
+            </div>
+            <div class="form-group">
+                <label>Piscina:</label>
+                <input [(ngModel)]="property.hasPool" type="checkbox" name="hasPool" />
+            </div>
+            <div class="form-group">
+                <label>Asador:</label>
+                <input [(ngModel)]="property.hasBBQ" type="checkbox" name="hasBBQ" />
+            </div>
+        </div>
+
+        <div class="form-group full-width">
+            <label>Precio por Noche:</label>
+            <input [(ngModel)]="property.nightlyRate" type="number" name="nightlyRate" required />
+        </div>
+
+        <div class="form-group">
+            <label>Arrendador:</label>
+            <select [(ngModel)]="property.ownerId" name="ownerId" required>
+              <option *ngFor="let landlord of users" [value]="landlord.id">{{ landlord.name }}</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="deactivate">Desactivar Propiedad:</label>
+            <button type="button" (click)="deactivateProperty()">Desactivar</button>
+        </div>
+
+        <button type="button" (click)="onSubmit()">Editar Propiedad</button>
+
+
+        <p *ngIf="message">{{ message }}</p>
+    </form>
+    
+</div>

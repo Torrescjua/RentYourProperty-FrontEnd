@@ -1,0 +1,85 @@
+/* Estilos globales */
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  background-color: #333333;
+  padding: 0.5rem 3rem;
+}
+
+.inicio {
+  background-image: url('./assets/img/header.jpg');
+  background-position: center center;
+  background-size: cover;
+  width: 100%;
+  min-height: 60rem;
+}
+
+.contenido-header {
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2rem;
+}
+
+.barra {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.derecha {
+  display: flex;
+  gap: 2rem;
+}
+
+.contenido-header h1 {
+  margin-top: 2rem;
+  font-size: 2.5rem;
+}
+
+.barra a {
+  color: #FFFFFF;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.logo {
+  margin-left: 0;
+}
+
+.navegacion {
+  margin-left: auto;
+}
+
+.navegacion a {
+  color: #FFFFFF;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  font-weight: 700;
+}
+
+h1 {
+  color: #FFFFFF;
+  font-weight: 700;
+  line-height: 1.5;
+  max-width: 60rem;
+  margin-top: 6rem; /* Ajusta este margen para mover el título */
+}
+
+.footer {
+  background-color: #333333;
+  padding: 1rem;
+  text-align: center;
+  width: 103.4%;
+  color: #FFFFFF;
+}
