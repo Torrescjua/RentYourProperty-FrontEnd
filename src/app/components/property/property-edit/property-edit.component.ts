@@ -37,6 +37,11 @@ export class PropertyEditComponent implements OnInit {
   Income = Income;
   message: string = '';
   searchQuery: string = '';
+  isMunicipalitySearch: boolean = false;
+  searchResults: Property[] = [];
+  isResultsVisible: boolean = false;
+  
+  
 
   constructor(
     private propertyService: PropertyService,
@@ -88,19 +93,29 @@ export class PropertyEditComponent implements OnInit {
     }
   }
 
-  searchProperties(): void {
-    this.propertyService.getPropertyByName(this.searchQuery).subscribe(data => {
-      if (data.length > 0) {
-        this.property = data[0]; // Asigna la primera coincidencia al objeto property
-      } else {
-        this.message = 'Propiedad no encontrada';
-      }
-    }, error => {
-      console.error('Error al buscar la propiedad', error);
-    });
+
+
+ 
+  selectProperty(property: Property): void {
+    this.property = property; 
+    this.isResultsVisible = false; 
   }
   
-
+  searchProperties(): void {
+    if (this.isMunicipalitySearch) {
+      this.propertyService.getPropertiesByMunicipality(this.searchQuery).subscribe(data => {
+        this.searchResults = data;
+        this.isResultsVisible = true;
+      });
+    } else {
+      this.propertyService.getPropertyByName(this.searchQuery).subscribe(data => {
+        this.searchResults = data;
+        this.isResultsVisible = true;
+      });
+    }
+  }
+  
+  
 
   deactivateProperty(): void {
     if (this.property.id) {

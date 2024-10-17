@@ -31,4 +31,8 @@ export class PropertyService {
   deactivateProperty(id: number): Observable<Property> {
     return this.http.put<Property>(`${this.apiUrl}/deactivate/${id}`, {});
   }
+
+   getPropertiesByCapacity(people: number): Observable<Property[]> {
+    return this.http.get<Property[]>(`${this.apiUrl}/capacity/${people}`);
+  }
 }
