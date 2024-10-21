@@ -17,7 +17,6 @@ import { UserService } from '../../../services/user/user.service';
 })
 export class PropertyEditComponent implements OnInit {
   property: Property = {
-    id: 0,
     name: '',
     location: '',
     description: '',
@@ -40,9 +39,8 @@ export class PropertyEditComponent implements OnInit {
   isMunicipalitySearch: boolean = false;
   searchResults: Property[] = [];
   isResultsVisible: boolean = false;
+  landlordName: string = ''; // Para mostrar el nombre del arrendador
   
-  
-
   constructor(
     private propertyService: PropertyService,
     private userService: UserService,
@@ -66,7 +64,8 @@ export class PropertyEditComponent implements OnInit {
   loadPropertyByName(name: string): void {
     this.propertyService.getPropertyByName(name).subscribe(data => {
       if (data.length > 0) {
-        this.property = data[0]; 
+        this.property = data[0];
+        console.log('Owner ID:', this.property.ownerId); // Añadir esto para verificar el valor
       } else {
         console.error('Propiedad no encontrada');
         this.router.navigate(['/error']);
@@ -75,6 +74,21 @@ export class PropertyEditComponent implements OnInit {
       console.error('Error al cargar la propiedad', error);
     });
   }
+  
+
+  // Método para cargar el nombre del arrendador
+  loadLandlordName(ownerId: number): void {
+    this.userService.getUserById(ownerId).subscribe(
+      user => {
+        this.landlordName = `${user.name} ${user.lastName}`; // Asigna el nombre del arrendador
+      },
+      error => {
+        console.error('Error al cargar el arrendador', error);
+      }
+    );
+  }
+  
+
 
   onSubmit(): void {
     if (this.property.id) {
@@ -93,9 +107,6 @@ export class PropertyEditComponent implements OnInit {
     }
   }
 
-
-
- 
   selectProperty(property: Property): void {
     this.property = property; 
     this.isResultsVisible = false; 
@@ -114,38 +125,39 @@ export class PropertyEditComponent implements OnInit {
       });
     }
   }
-  
-  
 
   deactivateProperty(): void {
     if (this.property.id) {
-        this.propertyService.deactivateProperty(this.property.id).subscribe(
-            response => {
-                this.message = 'Propiedad desactivada correctamente.';
-                // Reinicia el formulario después de desactivar
-                this.property = {
-                    name: '',
-                    location: '',
-                    description: '',
-                    photoUrl: '',
-                    department: '',
-                    municipality: '',
-                    incomeType: Income.MUNICIPIO,
-                    rooms: 1,
-                    bathrooms: 1,
-                    allowsPets: false,
-                    hasPool: false,
-                    hasBBQ: false,
-                    nightlyRate: 0,
-                    ownerId: 0
-                };
-            },
-            error => {
-                console.error('Error al desactivar la propiedad', error);
-                this.message = 'Error al desactivar la propiedad.';
-            }
-        );
+      this.propertyService.deactivateProperty(this.property.id).subscribe(
+        response => {
+          this.message = 'Propiedad desactivada correctamente.';
+          this.resetForm(); // Reinicia el formulario
+        },
+        error => {
+          console.error('Error al desactivar la propiedad', error);
+          this.message = 'Error al desactivar la propiedad.';
+        }
+      );
     }
-}
+  }
 
+  // Reiniciar el formulario después de desactivar
+  resetForm(): void {
+    this.property = {
+      name: '',
+      location: '',
+      description: '',
+      photoUrl: '',
+      department: '',
+      municipality: '',
+      incomeType: Income.MUNICIPIO,
+      rooms: 1,
+      bathrooms: 1,
+      allowsPets: false,
+      hasPool: false,
+      hasBBQ: false,
+      nightlyRate: 0,
+      ownerId: 0
+    };
+  }
 }
