@@ -1,5 +1,5 @@
 .form-container {
-  background-color: #e9e1d8;
+  background-color: #f0ece6;
   padding: 30px 40px;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
@@ -14,6 +14,8 @@
 h1 {
   margin-bottom: 20px;
   text-transform: uppercase;
+  font-size: 24px;
+  color: #333;
 }
 
 .form-row {
@@ -33,10 +35,6 @@ h1 {
   flex: 1 1 100%;
 }
 
-.form-group.three-columns {
-  flex: 1 1 30%;
-}
-
 input,
 textarea,
 select {
@@ -50,7 +48,7 @@ select {
 button {
   width: 100%;
   padding: 15px;
-  background-color: #007bff;
+  background-color: #28a745;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -60,5 +58,37 @@ button {
 }
 
 button:hover {
-  background-color: green;
+  background-color: #218838;
+}
+
+p {
+  color: #28a745;
+  font-size: 16px;
+}
+.search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-container input {
+  padding: 10px;
+  border-radius: 8px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  width: 300px;
+}
+
+.search-container button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.search-container button:hover {
+  background-color: #0056b3;
 }
