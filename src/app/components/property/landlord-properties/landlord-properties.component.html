@@ -1,0 +1,20 @@
+<div class="search-container">
+    <h2>Buscar Propiedades del Arrendador</h2>
+    <select [(ngModel)]="selectedLandlordId" (change)="onLandlordSelected()">
+      <option *ngFor="let user of users" [value]="user.id">
+        {{ user.name }} {{ user.lastName }}
+      </option>
+    </select>
+  </div>
+  
+  <div *ngIf="properties.length > 0">
+    <h3>Propiedades del Arrendador</h3>
+    <ul>
+      <li *ngFor="let property of properties">
+        {{ property.name }} - {{ property.location }}
+        <button (click)="goToEditProperty(property.name)">Editar</button>
+
+      </li>
+    </ul>
+  </div>
+  

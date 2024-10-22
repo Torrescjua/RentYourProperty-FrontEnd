@@ -35,4 +35,9 @@ export class PropertyService {
    getPropertiesByCapacity(people: number): Observable<Property[]> {
     return this.http.get<Property[]>(`${this.apiUrl}/capacity/${people}`);
   }
+
+  getPropertiesByOwnerId(ownerId: number): Observable<Property[]> {
+    return this.http.get<Property[]>(`${this.apiUrl}/owner/${ownerId}`);
+}
+
 }
