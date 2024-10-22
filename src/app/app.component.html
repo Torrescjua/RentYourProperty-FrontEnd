@@ -1,33 +1,42 @@
-
-<header class="header inicio">
-  <div class="contenido-header">
-    <div class="barra">
-      <a routerLink="/">
-        <img src="./assets/img/logo.svg" alt="Logo" loading="lazy">
-      </a>
-      <div class="derecha">
-        <nav class="navegacion">
-          <a routerLink="/nosotros">Nosotros</a>
-          <a routerLink="/anuncios">Anuncios</a>
-          <a routerLink="/blog">Blog</a>
-          <a routerLink="/contacto">Contacto</a>
-        </nav>
-      </div>
-    </div>
-    <h1>Arriendo de casas de lujo </h1>
-  </div>
+<header>
+  <nav class="navbar">
+    <!-- <img src="assets/logo.png" alt="Logo" class="logo"> -->
+    <ul class="nav-links">
+      <li><a routerLink="/buscar">Buscar Inmuebles</a></li>
+      <li><a routerLink="/publica">Publicar Inmueble</a></li>
+      <li><a routerLink="/contacto">Contacto</a></li>
+    </ul>
+    <button class="btn-publish">Publica tu Inmueble</button>
+  </nav>
 </header>
 
-<router-outlet></router-outlet>
+<section class="hero">
+  <div class="hero-content">
+    <h1>Encuentra tu inmueble ideal</h1>
+    <p>Más de 280.000 inmuebles disponibles para tu búsqueda</p>
+    <div class="search-bar">
+      <select>
+        <option value="tipo">Tipo de inmueble</option>
+      </select>
+      <select>
+        <option value="compra">Compra Nuevo</option>
+      </select>
+      <input type="text" placeholder="Ciudad, Zona o Barrio">
+      <button>Buscar</button>
+    </div>
+  </div>
+</section>
 
-<footer class="footer">
-  <div class="contenedor-footer">
-    <nav class="navegacion">
-      <a routerLink="/nosotros">Nosotros</a>
-      <a routerLink="/anuncios">Anuncios</a>
-      <a routerLink="/blog">Blog</a>
-      <a routerLink="/contacto">Contacto</a>
-    </nav>
-    <p class="copyright">Todos los Derechos Reservados © 2024</p>
+<section class="property-section">
+  <h2>Buscar Propiedades del Arrendador</h2>
+  <app-active-properties></app-active-properties>
+</section>
+
+
+<footer>
+  <div class="footer-content">
+    <p>Todos los Derechos Reservados © 2024</p>
   </div>
 </footer>
+
+<router-outlet></router-outlet>
