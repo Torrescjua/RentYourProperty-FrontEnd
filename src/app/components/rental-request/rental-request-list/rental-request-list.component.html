@@ -1,0 +1,66 @@
+<h1>Ver solicitudes de arriendo</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre de propiedad</th>
+      <th>Fecha y hora de solicitud</th>
+      <th>Fecha de llegada</th>
+      <th>Fecha de salida</th>
+      <th>Valor</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let request of rentalRequests">
+      <td>{{ propertyNames[request.propertyId] }}</td>
+      <td>{{ request.requestDate }}</td>
+      <td>{{ request.arrivalDate }}</td>
+      <td>{{ request.departureDate }}</td>
+      <td>{{ request.value }}</td>
+      <td>{{ request.requestStatus }}</td>
+      <td>
+        <ng-container *ngIf="request.requestStatus === 'PENDING'">
+          <button
+            class="btn-accept"
+            (click)="
+              acceptOrRejectRentalRequest(request.id ?? 0, true, request.userId)
+            "
+          >
+            Aceptar
+          </button>
+          <button
+            class="btn-reject"
+            (click)="
+              acceptOrRejectRentalRequest(
+                request.id ?? 0,
+                false,
+                request.userId
+              )
+            "
+          >
+            Rechazar
+          </button>
+        </ng-container>
+        <ng-container *ngIf="request.requestStatus === 'ACCEPTED'">
+          <button class="btn-payment" (click)="goToPayment(request.id ?? 0)">
+            Realizar pago
+          </button>
+        </ng-container>
+        <ng-container *ngIf="request.requestStatus === 'TO BE RATED'">
+          <button class="btn-rating" (click)="rateProperty(request.id ?? 0)">
+            Calificar predio
+          </button>
+          <button class="btn-rating" (click)="rateHost(request.id ?? 0)">
+            Calificar anfitrión
+          </button>
+        </ng-container>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #noRequests>
+  <p>No hay solicitudes de arriendo disponibles.</p>
+</ng-template>

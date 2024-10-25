@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Property } from '../../models/property.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PropertyService {
   private apiUrl = 'http://localhost:8080/api/property';
@@ -13,11 +13,19 @@ export class PropertyService {
 
   createProperty(property: Property): Observable<Property> {
     const params = new HttpParams().set('ownerId', property.ownerId.toString());
-    return this.http.post<Property>(`${this.apiUrl}/create`, property, { params });
+    return this.http.post<Property>(`${this.apiUrl}/create`, property, {
+      params,
+    });
+  }
+
+  getPropertyById(id: number): Observable<Property[]> {
+    return this.http.get<Property[]>(`${this.apiUrl}/property/${id}`);
   }
 
   getPropertiesByMunicipality(municipality: string): Observable<Property[]> {
-    return this.http.get<Property[]>(`${this.apiUrl}/municipality/${municipality}`);
+    return this.http.get<Property[]>(
+      `${this.apiUrl}/municipality/${municipality}`
+    );
   }
 
   getPropertyByName(name: string): Observable<Property[]> {
@@ -32,12 +40,11 @@ export class PropertyService {
     return this.http.put<Property>(`${this.apiUrl}/deactivate/${id}`, {});
   }
 
-   getPropertiesByCapacity(people: number): Observable<Property[]> {
+  getPropertiesByCapacity(people: number): Observable<Property[]> {
     return this.http.get<Property[]>(`${this.apiUrl}/capacity/${people}`);
   }
 
   getPropertiesByOwnerId(ownerId: number): Observable<Property[]> {
     return this.http.get<Property[]>(`${this.apiUrl}/owner/${ownerId}`);
-}
-
+  }
 }

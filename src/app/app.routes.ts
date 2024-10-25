@@ -4,6 +4,7 @@ import { PropertyEditComponent } from './components/property/property-edit/prope
 import { ActivePropertiesComponent } from './components/property/active-properties/active-properties.component';
 import { LandlordPropertiesComponent } from './components/property/landlord-properties/landlord-properties.component';
 import { RequestCreateComponent } from './components/rental-request/request-create/request-create.component';
+import { RentalRequestListComponent } from './components/rental-request/rental-request-list/rental-request-list.component';
 
 export const routes: Routes = [
   // Property
@@ -14,4 +15,9 @@ export const routes: Routes = [
   { path: 'editar-propiedad/:name', component: PropertyEditComponent },
   // Rental Request
   { path: 'crear-solicitud', component: RequestCreateComponent },
+  {
+    path: 'solicitudes/:userId',
+    component: RentalRequestListComponent,
+    // canActivate: [AuthGuard]
+  },
 ];
