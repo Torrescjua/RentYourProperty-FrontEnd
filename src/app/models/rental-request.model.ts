@@ -6,4 +6,7 @@ export interface RentalRequest {
   requestDate: string;
   responseDate?: string;
   requestStatus: string;
+  arrivalDate?: string | null;
+  departureDate?: string | null;
+  value?: number | null;
 }
