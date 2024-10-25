@@ -110,16 +110,21 @@ export class RequestCreateComponent implements OnInit {
     // Log rentalRequest for debugging purposes
     console.log('Rental Request Data:', this.rentalRequest);
 
-    // Submit the rental request to the backend
-    this.rentalRequestService.createRentalRequest(this.rentalRequest).subscribe(
-      (response) => {
-        this.message = 'Solicitud de renta creada exisotasamente';
-        console.log('Response:', response);
-      },
-      (error) => {
-        this.message = 'Error al crear la solicitud de renta';
-        console.error('Error:', error);
-      }
-    );
+    // Submit the rental request to the backend using userId and propertyId
+    this.rentalRequestService
+      .createRentalRequest(
+        this.rentalRequest.userId,
+        this.rentalRequest.propertyId
+      )
+      .subscribe(
+        (response) => {
+          this.message = 'Solicitud de renta creada exitosamente'; // Fixed typo
+          console.log('Response:', response);
+        },
+        (error) => {
+          this.message = 'Error al crear la solicitud de renta';
+          console.error('Error:', error);
+        }
+      );
   }
 }

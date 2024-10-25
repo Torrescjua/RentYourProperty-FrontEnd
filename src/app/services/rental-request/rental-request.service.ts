@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { RentalRequest } from '../../models/rental-request.model';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +12,17 @@ export class RentalRequestService {
 
   constructor(private http: HttpClient) {}
 
-  createRentalRequest(rentalRequest: RentalRequest): Observable<RentalRequest> {
-    return this.http.post<RentalRequest>(
-      `${this.apiUrl}/create`,
-      rentalRequest
-    );
+  createRentalRequest(
+    userId: number,
+    propertyId: number
+  ): Observable<RentalRequest> {
+    const params = new HttpParams()
+      .set('userId', userId.toString())
+      .set('propertyId', propertyId.toString());
+
+    return this.http.post<RentalRequest>(`${this.apiUrl}/create`, null, {
+      params,
+    });
   }
 
   getRentalRequestsByUserId(userId: number): Observable<RentalRequest[]> {
@@ -28,8 +35,8 @@ export class RentalRequestService {
     userId: number
   ): Observable<RentalRequest> {
     return this.http.post<RentalRequest>(
-      `${this.apiUrl}/decision/${requestId}`,
-      { isAccepted, userId }
+      `${this.apiUrl}/decision/${requestId}?isAccepted=${isAccepted}&userId=${userId}`,
+      null
     );
   }
 }

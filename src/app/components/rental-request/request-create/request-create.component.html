@@ -60,38 +60,6 @@
           </option>
         </select>
       </div>
-      <div class="form-group">
-        <label>Fecha de Solicitud:</label>
-        <input
-          [(ngModel)]="rentalRequest.requestDate"
-          name="requestDate"
-          type="date"
-          required
-        />
-      </div>
-    </div>
-
-    <div class="form-row">
-      <div class="form-group">
-        <label>Fecha de Respuesta (opcional):</label>
-        <input
-          [(ngModel)]="rentalRequest.responseDate"
-          name="responseDate"
-          type="date"
-        />
-      </div>
-      <div class="form-group">
-        <label>Estado de la Solicitud:</label>
-        <select
-          [(ngModel)]="rentalRequest.requestStatus"
-          name="requestStatus"
-          required
-        >
-          <option value="PENDING">Pendiente</option>
-          <option value="ACCEPTED">Aceptada</option>
-          <option value="REJECTED">Rechazada</option>
-        </select>
-      </div>
     </div>
 
     <button type="submit">Crear Solicitud</button>
