@@ -2,11 +2,11 @@
   <nav class="navbar">
     <!-- <img src="assets/logo.png" alt="Logo" class="logo"> -->
     <ul class="nav-links">
-      <li><a routerLink="/buscar">Buscar Inmuebles</a></li>
+      <li><a routerLink="/">Buscar Inmuebles</a></li>
       <li><a routerLink="/publica">Publicar Inmueble</a></li>
       <li><a routerLink="/contacto">Contacto</a></li>
     </ul>
-    <button class="btn-publish">Publica tu Inmueble</button>
+    <button class="btn-publish">Registrate</button>
   </nav>
 </header>
 
@@ -32,6 +32,7 @@
   <app-active-properties></app-active-properties>
 </section>
 
+<router-outlet></router-outlet>
 
 <footer>
   <div class="footer-content">
@@ -39,4 +40,3 @@
   </div>
 </footer>
 
-<router-outlet></router-outlet>
