@@ -5,6 +5,7 @@ import { ActivePropertiesComponent } from './components/property/active-properti
 import { LandlordPropertiesComponent } from './components/property/landlord-properties/landlord-properties.component';
 import { RequestCreateComponent } from './components/rental-request/request-create/request-create.component';
 import { RentalRequestListComponent } from './components/rental-request/rental-request-list/rental-request-list.component';
+import { PaymentComponent } from './components/payment/payment.component';
 
 export const routes: Routes = [
   // Property
@@ -20,4 +21,6 @@ export const routes: Routes = [
     component: RentalRequestListComponent,
     // canActivate: [AuthGuard]
   },
+  // Payment
+  { path: 'payments/pay/:rentalRequestId', component: PaymentComponent },
 ];

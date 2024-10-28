@@ -4,6 +4,7 @@ import { PropertyService } from '../../../services/property/property.service';
 import { RentalRequest } from '../../../models/rental-request.model';
 import { Property } from '../../../models/property.model';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rental-request-list',
@@ -18,7 +19,8 @@ export class RentalRequestListComponent implements OnInit {
 
   constructor(
     private rentalRequestService: RentalRequestService,
-    private propertyService: PropertyService
+    private propertyService: PropertyService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -81,10 +83,10 @@ export class RentalRequestListComponent implements OnInit {
   }
 
   goToPayment(requestId: number): void {
-    // Lógica para redirigir al usuario a la página de pago
     console.log(
       `Redirigiendo a la página de pago para la solicitud ID: ${requestId}`
     );
+    this.router.navigate([`/payments/pay/${requestId}`]);
   }
 
   rateProperty(requestId: number): void {
