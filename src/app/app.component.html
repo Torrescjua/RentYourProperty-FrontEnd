@@ -1,6 +1,7 @@
-<header>
+
+
+<header *ngIf="isHomeRoute">
   <nav class="navbar">
-    <!-- <img src="assets/logo.png" alt="Logo" class="logo"> -->
     <ul class="nav-links">
       <li><a routerLink="/">Buscar Inmuebles</a></li>
       <li><a routerLink="/publica">Publicar Inmueble</a></li>
@@ -10,7 +11,7 @@
   </nav>
 </header>
 
-<section class="hero">
+<section class="hero" *ngIf="isHomeRoute">
   <div class="hero-content">
     <h1>Encuentra tu inmueble ideal</h1>
     <p>Más de 280.000 inmuebles disponibles para tu búsqueda</p>
@@ -27,16 +28,15 @@
   </div>
 </section>
 
-<section class="property-section">
+<section class="property-section" *ngIf="isHomeRoute">
   <h2>Buscar Propiedades del Arrendador</h2>
   <app-active-properties></app-active-properties>
 </section>
 
 <router-outlet></router-outlet>
 
-<footer>
+<footer *ngIf="isHomeRoute">
   <div class="footer-content">
     <p>Todos los Derechos Reservados © 2024</p>
   </div>
 </footer>
-

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { RentalRequestService } from '../../../services/rental-request/rental-request.service';
 import { PropertyService } from '../../../services/property/property.service';
+import { UserService } from '../../../services/user/user.service'; // Import UserService
 import { RentalRequest } from '../../../models/rental-request.model';
 import { Property } from '../../../models/property.model';
+import { User } from '../../../models/user.model'; // Import User model
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-rental-request-list',
@@ -15,24 +17,43 @@ import { Router } from '@angular/router';
 })
 export class RentalRequestListComponent implements OnInit {
   rentalRequests: RentalRequest[] = [];
-  propertyNames: { [key: number]: string } = {}; // Store property names by propertyId
+  propertyNames: { [key: number]: string } = {};
+  applicantNames: { [key: number]: string } = {}; // Add this property
+  isLandlord: boolean = false;
 
   constructor(
     private rentalRequestService: RentalRequestService,
     private propertyService: PropertyService,
-    private router: Router
+    private userService: UserService,
+    private router: Router,
+    private route: ActivatedRoute // Inject ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    const userId = 1;
+    const userId = Number(this.route.snapshot.paramMap.get('userId')); // Get userId from route
+    this.checkUserType(userId);
     this.loadRentalRequests(userId);
+  }
+
+  checkUserType(userId: number): void {
+    this.userService.isUserLandlord(userId).subscribe(
+      (isLandlord) => {
+        this.isLandlord = isLandlord;
+      },
+      (error) => {
+        console.error('Error checking user type:', error);
+      }
+    );
   }
 
   loadRentalRequests(userId: number): void {
     this.rentalRequestService.getRentalRequestsByUserId(userId).subscribe(
       (requests) => {
         this.rentalRequests = requests;
-        this.fetchPropertyNames(); // Fetch property names after loading rental requests
+        this.fetchPropertyNames();
+        if (this.isLandlord) {
+          this.fetchApplicantNames(); // Fetch applicant names if the user is a landlord
+        }
       },
       (error) => {
         console.error('Error loading rental requests:', error);
@@ -41,13 +62,20 @@ export class RentalRequestListComponent implements OnInit {
   }
 
   fetchPropertyNames(): void {
+    console.log('Fetching property names for rental requests...');
     for (const request of this.rentalRequests) {
       if (request.propertyId) {
-        // Check if propertyId is valid
         this.propertyService.getPropertyById(request.propertyId).subscribe(
-          (properties: Property[]) => {
-            if (properties.length > 0) {
-              this.propertyNames[request.propertyId] = properties[0].name;
+          (property: Property) => {
+            if (property) {
+              this.propertyNames[request.propertyId] = property.name; // Directly assign the property name
+              console.log(
+                `Property name for request ID ${request.id}: ${property.name}`
+              );
+            } else {
+              console.warn(
+                `No property found for property ID: ${request.propertyId}`
+              );
             }
           },
           (error) => {
@@ -63,17 +91,41 @@ export class RentalRequestListComponent implements OnInit {
     }
   }
 
-  acceptOrRejectRentalRequest(
-    requestId: number,
-    isAccepted: boolean,
-    userId: number
-  ): void {
+  fetchApplicantNames(): void {
+    console.log('Fetching applicant names for rental requests...');
+    for (const request of this.rentalRequests) {
+      if (request.userId) {
+        this.userService.getUserById(request.userId).subscribe(
+          (user: User) => {
+            if (user) {
+              this.applicantNames[request.userId] = user.name; // Directly assign the user name
+              console.log(
+                `Applicant name for request ID ${request.id}: ${user.name}`
+              );
+            } else {
+              console.warn(`No applicant found for user ID: ${request.userId}`);
+            }
+          },
+          (error) => {
+            console.error('Error fetching applicant name:', error);
+          }
+        );
+      } else {
+        console.warn(
+          `Invalid userId for request ID ${request.id}:`,
+          request.userId
+        );
+      }
+    }
+  }
+
+  acceptOrRejectRentalRequest(requestId: number, isAccepted: boolean): void {
+    const userId = Number(this.route.snapshot.paramMap.get('userId')); // Get userId from route
     this.rentalRequestService
       .acceptOrRejectRentalRequest(requestId, isAccepted, userId)
       .subscribe(
         (response) => {
           console.log('Rental request updated:', response);
-          // Optionally, reload rental requests to reflect changes
           this.loadRentalRequests(userId);
         },
         (error) => {
@@ -83,19 +135,15 @@ export class RentalRequestListComponent implements OnInit {
   }
 
   goToPayment(requestId: number): void {
-    console.log(
-      `Redirigiendo a la página de pago para la solicitud ID: ${requestId}`
-    );
+    console.log(`Redirecting to payment page for request ID: ${requestId}`);
     this.router.navigate([`/payments/pay/${requestId}`]);
   }
 
   rateProperty(requestId: number): void {
-    // Lógica para calificar el predio
-    console.log(`Calificando el predio para la solicitud ID: ${requestId}`);
+    console.log(`Rating the property for request ID: ${requestId}`);
   }
 
   rateHost(requestId: number): void {
-    // Lógica para calificar al anfitrión
-    console.log(`Calificando al anfitrión para la solicitud ID: ${requestId}`);
+    console.log(`Rating the host for request ID: ${requestId}`);
   }
 }
