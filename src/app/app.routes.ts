@@ -6,7 +6,7 @@ import { LandlordPropertiesComponent } from './components/property/landlord-prop
 import { RequestCreateComponent } from './components/rental-request/request-create/request-create.component';
 import { RentalRequestListComponent } from './components/rental-request/rental-request-list/rental-request-list.component';
 import { PaymentComponent } from './components/payment/payment.component';
-
+import { LandlordProfileComponent } from './components/landlord-profile/landlord-profile.component';
 export const routes: Routes = [
   // Property
   { path: 'editar-propiedad', component: PropertyEditComponent },
@@ -23,4 +23,6 @@ export const routes: Routes = [
   },
   // Payment
   { path: 'payments/pay/:rentalRequestId', component: PaymentComponent },
+
+  { path: 'Arrendador', component: LandlordProfileComponent },
 ];
