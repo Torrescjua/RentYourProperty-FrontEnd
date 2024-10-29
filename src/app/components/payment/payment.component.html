@@ -1,0 +1,36 @@
+<div class="payment-form">
+  <h3>Make a Payment</h3>
+  <form (ngSubmit)="submitPayment()">
+    <div class="form-group">
+      <label for="amount">Amount</label>
+      <input
+        type="number"
+        id="amount"
+        [(ngModel)]="payment.amount"
+        name="amount"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="bank">Bank</label>
+      <select id="bank" [(ngModel)]="payment.bank" name="bank" required>
+        <option *ngFor="let bank of banks" [value]="bank">{{ bank }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="accountNumber">Account Number</label>
+      <input
+        type="text"
+        id="accountNumber"
+        [(ngModel)]="payment.accountNumber"
+        name="accountNumber"
+        required
+      />
+    </div>
+
+    <button type="submit">Submit Payment</button>
+    <p *ngIf="message">{{ message }}</p>
+  </form>
+</div>

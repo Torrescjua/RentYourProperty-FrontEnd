@@ -1,0 +1,79 @@
+/* Estilos generales para el componente */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Estilos para la tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 1rem;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+/* Hover para filas de la tabla */
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Estilos para los botones */
+button {
+  padding: 10px 15px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Button styles for payment */
+.btn-payment {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-payment:hover {
+  background-color: #218838;
+}
+
+/* Button styles for rating */
+.btn-rating {
+  background-color: #007bff;
+  color: white;
+  margin-right: 10px;
+}
+
+.btn-rating:hover {
+  background-color: #0056b3;
+}
+
+/* Button styles for accept action */
+.btn-accept {
+  background-color: #ffc107;
+  color: white;
+}
+
+.btn-accept:hover {
+  background-color: #e0a800;
+}
+
+/* Button styles for reject action */
+.btn-reject {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-reject:hover {
+  background-color: #c82333;
+}

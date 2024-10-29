@@ -1,0 +1,69 @@
+<div class="search-container">
+  <h2>Buscar Propiedad</h2>
+  <div>
+    <label>
+      <input
+        type="radio"
+        name="searchType"
+        (change)="isMunicipalitySearch = false"
+        checked
+      />
+      Buscar por nombre
+    </label>
+    <label>
+      <input
+        type="radio"
+        name="searchType"
+        (change)="isMunicipalitySearch = true"
+      />
+      Buscar por municipio
+    </label>
+  </div>
+  <input
+    type="text"
+    [(ngModel)]="searchQuery"
+    placeholder="Buscar por nombre o municipio"
+    name="search"
+  />
+  <button (click)="searchProperties()">Buscar</button>
+</div>
+
+<div *ngIf="isResultsVisible">
+  <h3>Resultados de la búsqueda:</h3>
+  <div *ngFor="let property of searchResults">
+    <p>{{ property.name }} - {{ property.municipality }}</p>
+    <button (click)="selectProperty(property)">Seleccionar</button>
+  </div>
+</div>
+
+<div class="form-container">
+  <h1>Crear Nueva Solicitud de Alquiler</h1>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Propiedad:</label>
+        <select
+          [(ngModel)]="rentalRequest.propertyId"
+          name="propertyId"
+          required
+        >
+          <option *ngFor="let property of properties" [value]="property.id">
+            {{ property.name }} (ID: {{ property.id }})
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Cliente:</label>
+        <select [(ngModel)]="rentalRequest.userId" name="userId" required>
+          <option *ngFor="let user of users" [value]="user.id">
+            {{ user.name }} {{ user.lastName }} (ID: {{ user.id }})
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <button type="submit">Crear Solicitud</button>
+
+    <p *ngIf="message">{{ message }}</p>
+  </form>
+</div>
