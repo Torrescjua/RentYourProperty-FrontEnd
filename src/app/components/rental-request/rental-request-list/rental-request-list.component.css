@@ -39,41 +39,40 @@ button {
 
 /* Button styles for payment */
 .btn-payment {
-  background-color: #28a745;
+  background-color: #28a745; /* Green */
   color: white;
 }
 
 .btn-payment:hover {
-  background-color: #218838;
+  background-color: #218838; /* Darker Green */
 }
 
 /* Button styles for rating */
 .btn-rating {
-  background-color: #007bff;
+  background-color: #007bff; /* Blue */
   color: white;
-  margin-right: 10px;
 }
 
 .btn-rating:hover {
-  background-color: #0056b3;
+  background-color: #0056b3; /* Darker Blue */
 }
 
 /* Button styles for accept action */
 .btn-accept {
-  background-color: #ffc107;
+  background-color: #ffc107; /* Yellow */
   color: white;
 }
 
 .btn-accept:hover {
-  background-color: #e0a800;
+  background-color: #e0a800; /* Darker Yellow */
 }
 
 /* Button styles for reject action */
 .btn-reject {
-  background-color: #dc3545;
+  background-color: #dc3545; /* Red */
   color: white;
 }
 
 .btn-reject:hover {
-  background-color: #c82333;
+  background-color: #c82333; /* Darker Red */
 }

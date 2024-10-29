@@ -10,6 +10,17 @@ describe('RentalRequestService', () => {
   let service: RentalRequestService;
   let httpMock: HttpTestingController;
 
+  // Mock data
+  const mockRentalRequest: RentalRequest = {
+    id: 1,
+    propertyId: 2,
+    userId: 3,
+    requestDate: '2024-10-20',
+    requestStatus: 'PENDING',
+  };
+
+  const mockRentalRequests: RentalRequest[] = [mockRentalRequest];
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -28,17 +39,14 @@ describe('RentalRequestService', () => {
   });
 
   it('should create a rental request', () => {
-    const mockRentalRequest: RentalRequest = {
-      id: 1,
-      propertyId: 2,
-      userId: 3,
-      requestDate: '2024-10-20',
-      requestStatus: 'PENDING',
-    };
-
-    service.createRentalRequest(mockRentalRequest).subscribe((response) => {
-      expect(response).toEqual(mockRentalRequest);
-    });
+    service
+      .createRentalRequest(
+        mockRentalRequest.propertyId,
+        mockRentalRequest.userId
+      )
+      .subscribe((response) => {
+        expect(response).toEqual(mockRentalRequest);
+      });
 
     const req = httpMock.expectOne(`${service['apiUrl']}/create`);
     expect(req.request.method).toBe('POST');
@@ -46,16 +54,6 @@ describe('RentalRequestService', () => {
   });
 
   it('should get rental requests by user ID', () => {
-    const mockRentalRequests: RentalRequest[] = [
-      {
-        id: 1,
-        propertyId: 2,
-        userId: 3,
-        requestDate: '2024-10-20',
-        requestStatus: 'PENDING',
-      },
-    ];
-
     service.getRentalRequestsByUserId(3).subscribe((response) => {
       expect(response).toEqual(mockRentalRequests);
     });
@@ -65,12 +63,9 @@ describe('RentalRequestService', () => {
     req.flush(mockRentalRequests);
   });
 
-  it('should accept or reject a rental request', () => {
-    const mockRentalRequest: RentalRequest = {
-      id: 1,
-      propertyId: 2,
-      userId: 3,
-      requestDate: '2024-10-20',
+  it('should accept a rental request', () => {
+    const updatedRequest = {
+      ...mockRentalRequest,
       requestStatus: 'ACCEPTED',
     };
 
@@ -82,6 +77,23 @@ describe('RentalRequestService', () => {
       `${service['apiUrl']}/decision/1?isAccepted=true&userId=3`
     );
     expect(req.request.method).toBe('POST');
-    req.flush(mockRentalRequest);
+    req.flush(updatedRequest);
+  });
+
+  it('should reject a rental request', () => {
+    const updatedRequest = {
+      ...mockRentalRequest,
+      requestStatus: 'REJECTED',
+    };
+
+    service.acceptOrRejectRentalRequest(1, false, 3).subscribe((response) => {
+      expect(response.requestStatus).toBe('REJECTED');
+    });
+
+    const req = httpMock.expectOne(
+      `${service['apiUrl']}/decision/1?isAccepted=false&userId=3`
+    );
+    expect(req.request.method).toBe('POST');
+    req.flush(updatedRequest);
   });
 });
