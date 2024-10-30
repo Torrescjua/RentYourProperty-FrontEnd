@@ -48,8 +48,8 @@ export class RequestCreateComponent implements OnInit {
       }
     );
 
-    // Load users with the ARRENDADOR role
-    this.userService.getUsersByRole('ARRENDADOR').subscribe(
+    // Load users with the ARRENDATARIO role
+    this.userService.getUsersByRole('ARRENDATARIO').subscribe(
       (data) => {
         this.users = data;
       },

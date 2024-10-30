@@ -1,0 +1,48 @@
+/* src/app/rating/rating.component.css */
+.rating-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    color: #333;
+  }
+  
+  .no-ratings {
+    text-align: center;
+    color: #999;
+  }
+  
+  .rating-item {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #fff;
+  }
+  
+  .rating-info {
+    margin-bottom: 10px;
+  }
+  
+  .rating-actions {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .rating-actions button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .rating-actions button:hover {
+    background-color: #0056b3;
+  }
+  

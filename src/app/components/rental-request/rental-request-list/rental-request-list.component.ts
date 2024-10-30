@@ -139,11 +139,15 @@ export class RentalRequestListComponent implements OnInit {
     this.router.navigate([`/payments/pay/${requestId}`]);
   }
 
-  rateProperty(requestId: number): void {
-    console.log(`Rating the property for request ID: ${requestId}`);
+  rateProperty(userId: number, requestId: number): void {
+    this.router.navigate(['/rating', userId, requestId, 'TENANT_TO_PROPERTY']);
   }
-
-  rateHost(requestId: number): void {
-    console.log(`Rating the host for request ID: ${requestId}`);
+  
+  rateHost(userId: number, requestId: number): void {
+    this.router.navigate(['/rating', userId, requestId, 'LANDLORD_TO_TENANT']);
   }
-}
+  
+  rateTenant(userId: number, requestId: number): void {
+    this.router.navigate(['/rating', userId, requestId, 'TENANT_TO_LANDLORD']);
+  }
+}  

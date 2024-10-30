@@ -21,23 +21,29 @@
         <td>{{ request.value }}</td>
         <td>{{ request.requestStatus }}</td>
         <td>
+          <!-- Accept and Reject buttons for PENDING status -->
           <button
-            *ngIf="
-              request.requestStatus === 'PENDING' && request.id !== undefined
-            "
+            *ngIf="request.requestStatus === 'PENDING' && request.id !== undefined"
             (click)="acceptOrRejectRentalRequest(request.id, true)"
             class="btn-accept"
           >
             Aceptar
           </button>
           <button
-            *ngIf="
-              request.requestStatus === 'PENDING' && request.id !== undefined
-            "
+            *ngIf="request.requestStatus === 'PENDING' && request.id !== undefined"
             (click)="acceptOrRejectRentalRequest(request.id, false)"
             class="btn-reject"
           >
             Rechazar
+          </button>
+
+          <!-- Rate Tenant button for TO_BE_RATED status for landlord -->
+          <button
+            *ngIf="request.requestStatus === 'TO_BE_RATED' && isLandlord && request.id !== undefined"
+            (click)="rateTenant(request.userId, request.id)"
+            class="btn-rating"
+          >
+            Calificar Inquilino
           </button>
         </td>
       </tr>
@@ -45,6 +51,7 @@
   </table>
 </div>
 
+<!-- Tenant template for non-landlords -->
 <ng-template #tenantTemplate>
   <h1>Solicitudes de Arrendamiento (Arrendatario)</h1>
   <table>
@@ -68,29 +75,26 @@
         <td>{{ request.value }}</td>
         <td>{{ request.requestStatus }}</td>
         <td>
+          <!-- Go to Payment button for ACCEPTED status -->
           <button
-            *ngIf="
-              request.requestStatus === 'ACCEPTED' && request.id !== undefined
-            "
+            *ngIf="request.requestStatus === 'ACCEPTED' && request.id !== undefined"
             (click)="goToPayment(request.id)"
             class="btn-payment"
           >
             Pagar
           </button>
+
+          <!-- Rate Property and Rate Host buttons for TO_BE_RATED status for non-landlords -->
           <button
-            *ngIf="
-              request.requestStatus === 'RATING' && request.id !== undefined
-            "
-            (click)="rateProperty(request.id)"
+            *ngIf="request.requestStatus === 'TO_BE_RATED' && !isLandlord && request.id !== undefined"
+            (click)="rateProperty(request.userId, request.id)" 
             class="btn-rating"
           >
             Calificar Predio
           </button>
           <button
-            *ngIf="
-              request.requestStatus === 'RATING' && request.id !== undefined
-            "
-            (click)="rateHost(request.id)"
+            *ngIf="request.requestStatus === 'TO_BE_RATED' && !isLandlord && request.id !== undefined"
+            (click)="rateHost(request.userId, request.id)"
             class="btn-rating"
           >
             Calificar Anfitrión
