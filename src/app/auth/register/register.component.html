@@ -1,23 +1,64 @@
 <div class="register-page">
     <div class="form">
-        <form class="register-form">
-            <input type="text" placeholder="First Name" name="name"/>
-            <input type="text" placeholder="Last Name" name="lastName"/>
-            <input type="text" placeholder="Email" name="email"/>
-            <input type="password" placeholder="Password" name="password"/>
-            <input type="text" placeholder="Phone" name="phone"/>
-            
-            <div class="role-selection">
-                <label>
-                    <input type="radio" name="role" value="arrendador" required> Arrendador
-                </label>
-                <label>
-                    <input type="radio" name="role" value="arrendatario" required> Arrendatario
-                </label>
-            </div>
-            
-            <button>Create Account</button>
-            <p class="message">Already registered? <a href="/login">Sign In</a></p>
-        </form>
+      <form #registerForm="ngForm" (ngSubmit)="onSubmit()" class="register-form">
+        <input 
+          type="text" 
+          placeholder="First Name" 
+          name="name" 
+          [(ngModel)]="user.name" 
+          required />
+        
+        <input 
+          type="text" 
+          placeholder="Last Name" 
+          name="lastName" 
+          [(ngModel)]="user.lastName" 
+          required />
+        
+        <input 
+          type="text" 
+          placeholder="Email" 
+          name="email" 
+          [(ngModel)]="user.email" 
+          required 
+          email />
+        
+        <input 
+          type="password" 
+          placeholder="Password" 
+          name="password" 
+          [(ngModel)]="user.password" 
+          required />
+        
+        <input 
+          type="text" 
+          placeholder="Phone" 
+          name="phone" 
+          [(ngModel)]="user.phone" 
+          required />
+        
+        <div class="role-selection">
+          <label>
+            <input 
+              type="radio" 
+              name="role" 
+              [(ngModel)]="user.role" 
+              value="ARRENDADOR" 
+              required /> Arrendador
+          </label>
+          <label>
+            <input 
+              type="radio" 
+              name="role" 
+              [(ngModel)]="user.role" 
+              value="ARRENDATARIO" 
+              required /> Arrendatario
+          </label>
+        </div>
+        
+        <button type="submit">Create Account</button>
+        <p class="message">Already registered? <a href="/login">Sign In</a></p>
+      </form>
     </div>
-</div>
+  </div>
+  

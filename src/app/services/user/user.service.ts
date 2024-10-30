@@ -43,4 +43,9 @@ export class UserService {
   isUserLandlord(userId: number): Observable<boolean> {
     return this.http.get<boolean>(`${this.apiUrl}/${userId}/is-landlord`);
   }
+
+  //logIn
+  login(user: User): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/login`, user);
+  }
 }
