@@ -7,6 +7,10 @@ import { LandlordPropertiesComponent } from '../property/landlord-properties/lan
 import { RentalRequestListComponent } from '../rental-request/rental-request-list/rental-request-list.component';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Router } from '@angular/router';
+import { UserService } from '../../services/user/user.service';
+import { Observable, of } from 'rxjs';
+import { User } from '../../models/user.model';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-landlord-profile',
@@ -41,19 +45,22 @@ import { Router } from '@angular/router';
 })
 export class LandlordProfileComponent implements OnInit {
   activeSection: string = 'dashboard';
-  userName: string = ''; // Nombre del usuario logueado
+  userName$: Observable<string> = of(''); // Initialize with an empty observable
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private userService: UserService) {}
 
   ngOnInit() {
-    const loggedInUser = localStorage.getItem('user');
-    if (loggedInUser) {
-      const user = JSON.parse(loggedInUser);
-      this.userName = user.name; // Asignar el nombre del usuario
-    } else {
-      // Ya no es necesario redirigir aquí, el AuthGuard se encargará de eso
-      this.router.navigate(['/login']);
-    }
+    // Subscribe to the user state to get the user's name reactively
+    this.userName$ = this.userService.userState$.pipe(
+      map((user) => (user ? user.name : ''))
+    );
+
+    // If there's no user, redirect to the login page
+    this.userService.userState$.subscribe((user) => {
+      if (!user) {
+        this.router.navigate(['/login']);
+      }
+    });
   }
 
   setActiveSection(section: string) {
@@ -61,15 +68,7 @@ export class LandlordProfileComponent implements OnInit {
   }
 
   logout() {
-    if (this.isBrowser()) {
-      // Eliminar datos de sesión y redirigir al inicio
-      localStorage.removeItem('loggedInUser');
-    }
-    this.userName = '';
-    this.router.navigate(['/']); // Redirigir al inicio
-  }
-
-  private isBrowser(): boolean {
-    return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
+    this.userService.logout();
+    this.router.navigate(['/']); // Redirect to home page after logout
   }
 }

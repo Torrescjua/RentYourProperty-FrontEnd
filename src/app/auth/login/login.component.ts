@@ -24,21 +24,6 @@ export class LoginComponent {
     this.userService.login(this.user).subscribe(
       (response: any) => {
         console.log('Usuario autenticado:', response);
-
-        // Verificar si estamos en un entorno del navegador
-        if (typeof window !== 'undefined' && localStorage) {
-          // Guardar usuario en localStorage
-          localStorage.setItem('user', JSON.stringify(response));
-        }
-
-        // Redirigir según el rol
-        if (response.role === 'ARRENDADOR') {
-          this.router.navigate(['/Arrendador']).then(() => {
-            console.log('Redirigiendo a Arrendador');
-          });
-        } else if (response.role === 'ARRENDATARIO') {
-          this.router.navigate(['/active-propiedad']);
-        }
       },
       (error: any) => {
         console.error('Error al iniciar sesión:', error);
