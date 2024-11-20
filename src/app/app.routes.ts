@@ -10,29 +10,36 @@ import { LandlordProfileComponent } from './components/landlord-profile/landlord
 import { RatingComponent } from './components/rating/rating.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
-import { VerifyEmailComponent } from './verify-email/verify-email.component';
+import { VerifyEmailComponent } from './auth/verify-email/verify-email.component';
+import { AuthGuard } from './guards/auth.guard'; // Suponiendo que tienes un AuthGuard implementado.
+
 export const routes: Routes = [
-  // Property
-  { path: 'editar-propiedad', component: PropertyEditComponent },
-  { path: 'crear-propiedad', component: PropertyCreateComponent },
+  // Property Routes
+  { path: 'editar-propiedad', component: PropertyEditComponent, canActivate: [AuthGuard] },
+  { path: 'crear-propiedad', component: PropertyCreateComponent, canActivate: [AuthGuard] },
   { path: 'active-propiedad', component: ActivePropertiesComponent },
-  { path: 'cargar-propiedades', component: LandlordPropertiesComponent },
-  { path: 'editar-propiedad/:name', component: PropertyEditComponent },
-  // Rental Request
-  { path: 'crear-solicitud', component: RequestCreateComponent },
-  {
-    path: 'solicitudes/:userId',
-    component: RentalRequestListComponent,
-    // canActivate: [AuthGuard]
-  },
-  // Payment
-  { path: 'payments/pay/:rentalRequestId', component: PaymentComponent },
-  { path: 'Arrendador', component: LandlordProfileComponent },
+  { path: 'cargar-propiedades', component: LandlordPropertiesComponent, canActivate: [AuthGuard] },
+  { path: 'editar-propiedad/:name', component: PropertyEditComponent, canActivate: [AuthGuard] },
 
-  { path: 'rating/:userId/:requestId', component: RatingComponent },
+  // Rental Request Routes
+  { path: 'crear-solicitud', component: RequestCreateComponent, canActivate: [AuthGuard] },
+  { path: 'solicitudes/:userId', component: RentalRequestListComponent, canActivate: [AuthGuard] },
 
-  //Auth
-  { path: 'login', component: LoginComponent},
-  { path: 'register', component: RegisterComponent},
-  { path: 'verify-email', component: VerifyEmailComponent }
+  // Payment Routes
+  { path: 'payments/pay/:rentalRequestId', component: PaymentComponent, canActivate: [AuthGuard] },
+
+  // Landlord Routes
+  { path: 'Arrendador', component: LandlordProfileComponent, canActivate: [AuthGuard] },
+
+  // Rating Routes
+  { path: 'rating/:userId/:requestId', component: RatingComponent, canActivate: [AuthGuard] },
+
+  // Auth Routes
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'verify-email', component: VerifyEmailComponent },
+
+  // Default Route
+  { path: '', redirectTo: '/active-propiedad', pathMatch: 'full' },
+  { path: '**', redirectTo: '/active-propiedad' } // Ruta por defecto para rutas no encontradas.
 ];

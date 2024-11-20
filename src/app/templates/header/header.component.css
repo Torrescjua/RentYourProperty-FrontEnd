@@ -1,0 +1,61 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #003366;
+    padding: 10px 20px;
+    color: white;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-links li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .auth-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .auth-actions span {
+    margin-right: 10px;
+    font-size: 16px;
+  }
+  
+  .btn-register,
+  .btn-login,
+  .btn-logout {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    color: white;
+  }
+  
+  .btn-register {
+    background-color: #ff6f00;
+  }
+  
+  .btn-login {
+    background-color: #007bff;
+  }
+  
+  .btn-logout {
+    background-color: #dc3545;
+  }
+  
+  .btn-register:hover,
+  .btn-login:hover,
+  .btn-logout:hover {
+    opacity: 0.8;
+  }
+  

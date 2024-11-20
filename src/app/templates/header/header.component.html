@@ -1,0 +1,16 @@
+<header>
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a routerLink="/">Buscar Inmuebles</a></li>
+        <li><a routerLink="/publica">Publicar Inmueble</a></li>
+        <li><a routerLink="/contacto">Contacto</a></li>
+      </ul>
+      <div class="auth-actions">
+        <span *ngIf="isLoggedIn">Bienvenido, {{ userName }}</span>
+        <button *ngIf="!isLoggedIn" class="btn-register" (click)="redirectToRegister()">Registrarse</button>
+        <button *ngIf="!isLoggedIn" class="btn-login" (click)="redirectToLogin()">Iniciar Sesión</button>
+        <button *ngIf="isLoggedIn" class="btn-logout" (click)="logout()">Cerrar Sesión</button>
+      </div>
+    </nav>
+  </header>
+  

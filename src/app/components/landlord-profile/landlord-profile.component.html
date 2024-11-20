@@ -6,12 +6,18 @@
       <li><a (click)="setActiveSection('edit-property')">Editar Propiedad</a></li>
       <li><a (click)="setActiveSection('requests')">Solicitudes</a></li>
     </ul>
+    <div class="auth-actions">
+      <!-- Mostrar el nombre del usuario si está logueado -->
+      <span *ngIf="isLoggedIn">Bienvenido, {{ userName }}</span>
+      <!-- Botón para cerrar sesión -->
+      <button *ngIf="isLoggedIn" (click)="logout()">Cerrar Sesión</button>
+    </div>
   </nav>
 </header>
 
-
 <section class="welcome-section">
-  <h1>Bienvenido</h1>
+  <!-- Mostrar el nombre del usuario -->
+  <h1>Bienvenido, {{ userName }}</h1>
   <p>Este es tu panel de control. Aquí puedes administrar tus propiedades, solicitudes y pagos.</p>
 </section>
 
