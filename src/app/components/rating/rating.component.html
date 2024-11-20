@@ -1,0 +1,16 @@
+<div *ngIf="pendingRating">
+    <h3>Rate {{ pendingRating.ratingType }} for Request {{ requestId }}</h3>
+    
+    <form (ngSubmit)="submitRating()">
+      <label>Rating (1-5):</label>
+      <input type="number" [(ngModel)]="pendingRating.score" name="score" min="1" max="5" required>
+      
+      <label>Comment:</label>
+      <textarea [(ngModel)]="pendingRating.comment" name="comment"></textarea>
+      
+      <button type="submit">Submit Rating</button>
+    </form>
+  </div>
+  
+  <p *ngIf="!pendingRating">No pending rating found for this request.</p>
+  

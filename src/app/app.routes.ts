@@ -7,6 +7,7 @@ import { RequestCreateComponent } from './components/rental-request/request-crea
 import { RentalRequestListComponent } from './components/rental-request/rental-request-list/rental-request-list.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { LandlordProfileComponent } from './components/landlord-profile/landlord-profile.component';
+import { RatingComponent } from './components/rating/rating.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
@@ -27,6 +28,9 @@ export const routes: Routes = [
   // Payment
   { path: 'payments/pay/:rentalRequestId', component: PaymentComponent },
   { path: 'Arrendador', component: LandlordProfileComponent },
+
+  { path: 'rating/:userId/:requestId', component: RatingComponent },
+
   //Auth
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
