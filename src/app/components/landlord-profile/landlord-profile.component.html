@@ -2,15 +2,19 @@
   <nav class="navbar">
     <ul class="nav-links">
       <li><a (click)="setActiveSection('dashboard')">Inicio</a></li>
-      <li><a (click)="setActiveSection('create-property')">Crear Propiedad</a></li>
-      <li><a (click)="setActiveSection('edit-property')">Editar Propiedad</a></li>
+      <li>
+        <a (click)="setActiveSection('create-property')">Crear Propiedad</a>
+      </li>
+      <li>
+        <a (click)="setActiveSection('edit-property')">Editar Propiedad</a>
+      </li>
       <li><a (click)="setActiveSection('requests')">Solicitudes</a></li>
     </ul>
     <div class="auth-actions">
-      <!-- Mostrar el nombre del usuario si está logueado -->
-      <span *ngIf="isLoggedIn">Bienvenido, {{ userName }}</span>
+      <!-- Mostrar siempre el nombre del usuario -->
+      <span>Bienvenido, {{ userName }}</span>
       <!-- Botón para cerrar sesión -->
-      <button *ngIf="isLoggedIn" (click)="logout()">Cerrar Sesión</button>
+      <button (click)="logout()">Cerrar Sesión</button>
     </div>
   </nav>
 </header>
@@ -18,7 +22,10 @@
 <section class="welcome-section">
   <!-- Mostrar el nombre del usuario -->
   <h1>Bienvenido, {{ userName }}</h1>
-  <p>Este es tu panel de control. Aquí puedes administrar tus propiedades, solicitudes y pagos.</p>
+  <p>
+    Este es tu panel de control. Aquí puedes administrar tus propiedades,
+    solicitudes y pagos.
+  </p>
 </section>
 
 <section class="dashboard-section">

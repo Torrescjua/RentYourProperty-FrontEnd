@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
     PropertyCreateComponent,
     PropertyEditComponent,
     LandlordPropertiesComponent,
-    RentalRequestListComponent
+    RentalRequestListComponent,
   ],
   templateUrl: './landlord-profile.component.html',
   styleUrls: ['./landlord-profile.component.css'],
@@ -25,10 +25,16 @@ import { Router } from '@angular/router';
     trigger('fadeAnimation', [
       transition(':enter', [
         style({ opacity: 0, transform: 'translateY(20px)' }),
-        animate('0.5s ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
+        animate(
+          '0.5s ease-out',
+          style({ opacity: 1, transform: 'translateY(0)' })
+        ),
       ]),
       transition(':leave', [
-        animate('0.5s ease-out', style({ opacity: 0, transform: 'translateY(20px)' })),
+        animate(
+          '0.5s ease-out',
+          style({ opacity: 0, transform: 'translateY(20px)' })
+        ),
       ]),
     ]),
   ],
@@ -36,21 +42,17 @@ import { Router } from '@angular/router';
 export class LandlordProfileComponent implements OnInit {
   activeSection: string = 'dashboard';
   userName: string = ''; // Nombre del usuario logueado
-  isLoggedIn: boolean = false; // Estado de autenticación
 
   constructor(private router: Router) {}
 
   ngOnInit() {
-    if (this.isBrowser()) {
-      const loggedInUser = localStorage.getItem('loggedInUser');
-      if (loggedInUser) {
-        const user = JSON.parse(loggedInUser);
-        this.userName = user.name; // Asignar el nombre del usuario
-        this.isLoggedIn = true; // Establecer estado de autenticación
-      } else {
-        // Redirige al login si no hay usuario autenticado
-        this.router.navigate(['/login']);
-      }
+    const loggedInUser = localStorage.getItem('user');
+    if (loggedInUser) {
+      const user = JSON.parse(loggedInUser);
+      this.userName = user.name; // Asignar el nombre del usuario
+    } else {
+      // Ya no es necesario redirigir aquí, el AuthGuard se encargará de eso
+      this.router.navigate(['/login']);
     }
   }
 
@@ -63,7 +65,6 @@ export class LandlordProfileComponent implements OnInit {
       // Eliminar datos de sesión y redirigir al inicio
       localStorage.removeItem('loggedInUser');
     }
-    this.isLoggedIn = false;
     this.userName = '';
     this.router.navigate(['/']); // Redirigir al inicio
   }
