@@ -1,4 +1,4 @@
 export enum Role {
-  ARRENDADOR = 'arrendador',
-  ARRENDATARIO = 'arrendatario'
+  ARRENDADOR = 'ARRENDADOR',
+  ARRENDATARIO = 'ARRENDATARIO'
 }

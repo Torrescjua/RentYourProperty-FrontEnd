@@ -6,7 +6,7 @@ import { RentalRequest } from '../../../models/rental-request.model';
 import { Property } from '../../../models/property.model';
 import { User } from '../../../models/user.model'; // Import User model
 import { CommonModule } from '@angular/common';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rental-request-list',
@@ -20,19 +20,29 @@ export class RentalRequestListComponent implements OnInit {
   propertyNames: { [key: number]: string } = {};
   applicantNames: { [key: number]: string } = {}; // Add this property
   isLandlord: boolean = false;
+  currentUserId: number | null | undefined = undefined;
 
   constructor(
     private rentalRequestService: RentalRequestService,
     private propertyService: PropertyService,
     private userService: UserService,
-    private router: Router,
-    private route: ActivatedRoute // Inject ActivatedRoute
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    const userId = Number(this.route.snapshot.paramMap.get('userId')); // Get userId from route
-    this.checkUserType(userId);
-    this.loadRentalRequests(userId);
+    const currentUser = this.userService.getCurrentUser(); // No need for subscribe
+    if (currentUser) {
+      this.currentUserId = currentUser.id; // Set the current user's ID
+      if (this.currentUserId !== undefined && this.currentUserId !== null) {
+        this.checkUserType(this.currentUserId);
+        this.loadRentalRequests(this.currentUserId);
+      } else {
+        console.error('User ID is undefined or null');
+      }
+    } else {
+      console.error('No user is logged in');
+      this.router.navigate(['/login']); // Redirect to login if no user is found
+    }
   }
 
   checkUserType(userId: number): void {
@@ -47,8 +57,10 @@ export class RentalRequestListComponent implements OnInit {
   }
 
   loadRentalRequests(userId: number): void {
+    console.log(`Loading rental requests for user ID: ${userId}`); // Add log here
     this.rentalRequestService.getRentalRequestsByUserId(userId).subscribe(
       (requests) => {
+        console.log('Rental requests loaded successfully:', requests); // Add log here
         this.rentalRequests = requests;
         this.fetchPropertyNames();
         if (this.isLandlord) {
@@ -56,7 +68,7 @@ export class RentalRequestListComponent implements OnInit {
         }
       },
       (error) => {
-        console.error('Error loading rental requests:', error);
+        console.error('Error loading rental requests:', error); // Log the error
       }
     );
   }
@@ -120,18 +132,24 @@ export class RentalRequestListComponent implements OnInit {
   }
 
   acceptOrRejectRentalRequest(requestId: number, isAccepted: boolean): void {
-    const userId = Number(this.route.snapshot.paramMap.get('userId')); // Get userId from route
-    this.rentalRequestService
-      .acceptOrRejectRentalRequest(requestId, isAccepted, userId)
-      .subscribe(
-        (response) => {
-          console.log('Rental request updated:', response);
-          this.loadRentalRequests(userId);
-        },
-        (error) => {
-          console.error('Error updating rental request:', error);
-        }
-      );
+    if (this.currentUserId !== undefined && this.currentUserId !== null) {
+      this.rentalRequestService
+        .acceptOrRejectRentalRequest(requestId, isAccepted, this.currentUserId)
+        .subscribe(
+          (response) => {
+            console.log('Rental request updated:', response);
+            if (
+              this.currentUserId !== undefined &&
+              this.currentUserId !== null
+            ) {
+              this.loadRentalRequests(this.currentUserId);
+            }
+          },
+          (error) => {
+            console.error('Error updating rental request:', error);
+          }
+        );
+    }
   }
 
   goToPayment(requestId: number): void {
@@ -142,12 +160,12 @@ export class RentalRequestListComponent implements OnInit {
   rateProperty(userId: number, requestId: number): void {
     this.router.navigate(['/rating', userId, requestId, 'TENANT_TO_PROPERTY']);
   }
-  
+
   rateHost(userId: number, requestId: number): void {
     this.router.navigate(['/rating', userId, requestId, 'LANDLORD_TO_TENANT']);
   }
-  
+
   rateTenant(userId: number, requestId: number): void {
     this.router.navigate(['/rating', userId, requestId, 'TENANT_TO_LANDLORD']);
   }
-}  
+}

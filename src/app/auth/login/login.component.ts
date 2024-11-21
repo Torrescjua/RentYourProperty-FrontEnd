@@ -19,19 +19,15 @@ export class LoginComponent {
   constructor(private userService: UserService, private router: Router) {}
 
   onSubmit() {
-    console.log('Formulario de inicio de sesión enviado con datos:', JSON.stringify(this.user));
+    console.log('Formulario de inicio de sesión enviado:', this.user);
 
     this.userService.login(this.user).subscribe(
       (response: any) => {
         console.log('Usuario autenticado:', response);
-        // Guarda los datos del usuario si es necesario
-        localStorage.setItem('user', JSON.stringify(response));
-        // Redirige al usuario al dashboard o página principal
-        this.router.navigate(['/']);
       },
       (error: any) => {
         console.error('Error al iniciar sesión:', error);
-        this.errorMessage = 'Correo electrónico o contraseña incorrectos.';
+        this.errorMessage = 'Correo o contraseña incorrectos.';
       }
     );
   }

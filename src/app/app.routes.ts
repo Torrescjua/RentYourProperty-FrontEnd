@@ -10,29 +10,71 @@ import { LandlordProfileComponent } from './components/landlord-profile/landlord
 import { RatingComponent } from './components/rating/rating.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
-import { VerifyEmailComponent } from './verify-email/verify-email.component';
+import { VerifyEmailComponent } from './auth/verify-email/verify-email.component';
+import { AuthGuard } from './guards/auth.guard'; // Suponiendo que tienes un AuthGuard implementado.
+import { TenantProfileComponent } from './components/tenant-profile/tenant-profile.component';
+import { HomeComponent } from './templates/home/home.component';
+
 export const routes: Routes = [
-  // Property
-  { path: 'editar-propiedad', component: PropertyEditComponent },
-  { path: 'crear-propiedad', component: PropertyCreateComponent },
-  { path: 'active-propiedad', component: ActivePropertiesComponent },
-  { path: 'cargar-propiedades', component: LandlordPropertiesComponent },
-  { path: 'editar-propiedad/:name', component: PropertyEditComponent },
-  // Rental Request
-  { path: 'crear-solicitud', component: RequestCreateComponent },
+  // Property Routes
   {
-    path: 'solicitudes/:userId',
-    component: RentalRequestListComponent,
-    // canActivate: [AuthGuard]
+    path: 'editar-propiedad',
+    component: PropertyEditComponent,
+    canActivate: [AuthGuard],
   },
-  // Payment
-  { path: 'payments/pay/:rentalRequestId', component: PaymentComponent },
-  { path: 'Arrendador', component: LandlordProfileComponent },
+  {
+    path: 'crear-propiedad',
+    component: PropertyCreateComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'active-propiedad', component: ActivePropertiesComponent },
+  {
+    path: 'cargar-propiedades',
+    component: LandlordPropertiesComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'editar-propiedad/:name',
+    component: PropertyEditComponent,
+    canActivate: [AuthGuard],
+  },
 
-  { path: 'rating/:userId/:requestId', component: RatingComponent },
+  // Payment Routes
+  {
+    path: 'payments/pay/:rentalRequestId',
+    component: PaymentComponent,
+    canActivate: [AuthGuard],
+  },
 
-  //Auth
-  { path: 'login', component: LoginComponent},
-  { path: 'register', component: RegisterComponent},
-  { path: 'verify-email', component: VerifyEmailComponent }
+  // Landlord Routes
+  {
+    path: 'arrendador',
+    component: LandlordProfileComponent,
+    canActivate: [AuthGuard],
+  },
+  // Tenant Routes
+  {
+    path: 'arrendatario',
+    component: TenantProfileComponent,
+    canActivate: [AuthGuard],
+  },
+
+  // Rating Routes
+  {
+    path: 'rating/:userId/:requestId',
+    component: RatingComponent,
+    canActivate: [AuthGuard],
+  },
+
+  // Auth Routes
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'verify-email', component: VerifyEmailComponent },
+
+  // Home Route
+  { path: 'home', component: HomeComponent },
+
+  // Default Route
+  { path: '', redirectTo: '/arrendatario', pathMatch: 'full' },
+  { path: '**', redirectTo: '/arrendatario' }, // Ruta por defecto para rutas no encontradas.
 ];

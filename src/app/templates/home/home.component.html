@@ -1,0 +1,51 @@
+<div class="home-page">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Descubre tu nuevo hogar</h1>
+        <p>Más de 300,000 propiedades disponibles para compra y arriendo.</p>
+        <div class="search-bar">
+          <input type="text" placeholder="Ciudad, Zona o Barrio" />
+          <select>
+            <option value="">Tipo de inmueble</option>
+            <option value="apartment">Apartamento</option>
+            <option value="house">Casa</option>
+            <option value="office">Oficina</option>
+          </select>
+          <select>
+            <option value="rent">Arriendo</option>
+            <option value="sale">Venta</option>
+          </select>
+          <button>Buscar</button>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Property Listings Section -->
+    <section class="property-listings">
+        <h2>Propiedades destacadas</h2>
+        <div class="properties">
+          <div class="property-card" *ngFor="let property of properties">
+            <img [src]="property.image" alt="Imagen de la propiedad" />
+            <h3>{{ property.title }}</h3>
+            <p>{{ property.description }}</p>
+            <p class="price"><strong>{{ property.price }}</strong></p>
+            <button>Ver Detalles</button>
+          </div>
+        </div>
+      </section>
+      
+  
+    <!-- Featured Info Section -->
+    <section class="info-section">
+      <h2>¿Por qué elegirnos?</h2>
+      <div class="info-cards">
+        <div class="info-card" *ngFor="let card of infoCards">
+          <img [src]="card.icon" alt="{{ card.title }}" />
+          <h3>{{ card.title }}</h3>
+          <p>{{ card.description }}</p>
+        </div>
+      </div>
+    </section>
+  </div>
+  

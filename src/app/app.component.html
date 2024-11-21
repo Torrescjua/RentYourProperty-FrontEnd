@@ -1,42 +1,8 @@
+<!-- Header visible solo si `showHeader` es verdadero -->
+<app-header *ngIf="showHeader" [isHomeRoute]="isHomeRoute"></app-header>
 
-
-<header *ngIf="isHomeRoute">
-  <nav class="navbar">
-    <ul class="nav-links">
-      <li><a routerLink="/">Buscar Inmuebles</a></li>
-      <li><a routerLink="/publica">Publicar Inmueble</a></li>
-      <li><a routerLink="/contacto">Contacto</a></li>
-    </ul>
-    <button class="btn-publish">Registrate</button>
-  </nav>
-</header>
-
-<section class="hero" *ngIf="isHomeRoute">
-  <div class="hero-content">
-    <h1>Encuentra tu inmueble ideal</h1>
-    <p>Más de 280.000 inmuebles disponibles para tu búsqueda</p>
-    <div class="search-bar">
-      <select>
-        <option value="tipo">Tipo de inmueble</option>
-      </select>
-      <select>
-        <option value="compra">Compra Nuevo</option>
-      </select>
-      <input type="text" placeholder="Ciudad, Zona o Barrio">
-      <button>Buscar</button>
-    </div>
-  </div>
-</section>
-
-<section class="property-section" *ngIf="isHomeRoute">
-  <h2>Buscar Propiedades del Arrendador</h2>
-  <app-active-properties></app-active-properties>
-</section>
-
+<!-- Aquí se cargan todas las rutas -->
 <router-outlet></router-outlet>
 
-<footer *ngIf="isHomeRoute">
-  <div class="footer-content">
-    <p>Todos los Derechos Reservados © 2024</p>
-  </div>
-</footer>
+<!-- Footer visible siempre -->
+<app-footer></app-footer>

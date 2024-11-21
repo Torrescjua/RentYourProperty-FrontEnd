@@ -10,6 +10,7 @@ export class User {
     role: Role;
   
     constructor() {
+
       this.name = '';
       this.lastName = '';
       this.email = '';

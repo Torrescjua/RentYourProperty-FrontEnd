@@ -6,13 +6,20 @@
       <li><a (click)="setActiveSection('edit-property')">Editar Propiedad</a></li>
       <li><a (click)="setActiveSection('requests')">Solicitudes</a></li>
     </ul>
+    <div class="auth-actions">
+      <span>Bienvenido, {{ userName$ | async }}</span>
+      <button class="btn-logout" (click)="logout()">Cerrar Sesión</button>
+    </div>
   </nav>
 </header>
 
-
 <section class="welcome-section">
-  <h1>Bienvenido</h1>
-  <p>Este es tu panel de control. Aquí puedes administrar tus propiedades, solicitudes y pagos.</p>
+  <!-- Mostrar el nombre del usuario -->
+  <h1>Bienvenido, {{ userName$ | async }}</h1>
+  <p>
+    Este es tu panel de control. Aquí puedes administrar tus propiedades,
+    solicitudes y pagos.
+  </p>
 </section>
 
 <section class="dashboard-section">
@@ -52,9 +59,3 @@
     <app-rental-request-list></app-rental-request-list>
   </div>
 </section>
-
-<footer>
-  <div class="footer-content">
-    <p>Todos los Derechos Reservados © 2024</p>
-  </div>
-</footer>
