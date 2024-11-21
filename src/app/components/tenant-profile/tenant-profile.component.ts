@@ -61,16 +61,14 @@ export class TenantProfileComponent implements OnInit {
     this.userRole$ = this.userService.userState$.pipe(
       map((user) => (user ? user.role : ''))
     );
-
-    // If user is a landlord, navigate to 'Arrendador'
-    this.userRole$.subscribe((role) => {
-      if (role === 'ARRENDATARIO') {
-        this.router.navigate(['/arrendatario']); // Navigate to landlord route
-      }
-    });
   }
 
   setActiveSection(section: string): void {
     this.activeSection = section; // Cambia la sección activa al hacer clic
+  }
+
+  logout(): void {
+    this.userService.logout(); // Llama al servicio de logout
+    this.router.navigate(['/home']); // Redirige al usuario al login
   }
 }

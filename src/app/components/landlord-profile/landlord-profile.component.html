@@ -2,14 +2,14 @@
   <nav class="navbar">
     <ul class="nav-links">
       <li><a (click)="setActiveSection('dashboard')">Inicio</a></li>
-      <li>
-        <a (click)="setActiveSection('create-property')">Crear Propiedad</a>
-      </li>
-      <li>
-        <a (click)="setActiveSection('edit-property')">Editar Propiedad</a>
-      </li>
+      <li><a (click)="setActiveSection('create-property')">Crear Propiedad</a></li>
+      <li><a (click)="setActiveSection('edit-property')">Editar Propiedad</a></li>
       <li><a (click)="setActiveSection('requests')">Solicitudes</a></li>
     </ul>
+    <div class="auth-actions">
+      <span>Bienvenido, {{ userName$ | async }}</span>
+      <button class="btn-logout" (click)="logout()">Cerrar Sesión</button>
+    </div>
   </nav>
 </header>
 

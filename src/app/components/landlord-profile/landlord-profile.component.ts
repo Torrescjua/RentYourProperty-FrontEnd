@@ -62,6 +62,6 @@ export class LandlordProfileComponent implements OnInit {
 
   logout() {
     this.userService.logout();
-    this.router.navigate(['/']); // Redirect to home page after logout
+    this.router.navigate(['/home']); // Redirect to home page after logout
   }
 }

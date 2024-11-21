@@ -3,14 +3,14 @@
     <ul class="nav-links">
       <li><a (click)="setActiveSection('dashboard')">Inicio</a></li>
       <li><a (click)="setActiveSection('requests')">Solicitudes</a></li>
-      <li>
-        <a (click)="setActiveSection('request-create')">Crear Solicitud</a>
-      </li>
+      <li><a (click)="setActiveSection('request-create')">Crear Solicitud</a></li>
       <li><a (click)="setActiveSection('properties')">Mis Propiedades</a></li>
     </ul>
+    <div class="auth-actions">
+      <button class="btn-logout" (click)="logout()">Cerrar Sesión</button>
+    </div>
   </nav>
 </header>
-
 <section class="welcome-section">
   <h1>Bienvenido, {{ userName$ | async }}</h1>
   <p>

@@ -13,6 +13,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { VerifyEmailComponent } from './auth/verify-email/verify-email.component';
 import { AuthGuard } from './guards/auth.guard'; // Suponiendo que tienes un AuthGuard implementado.
 import { TenantProfileComponent } from './components/tenant-profile/tenant-profile.component';
+import { HomeComponent } from './templates/home/home.component';
 
 export const routes: Routes = [
   // Property Routes
@@ -70,7 +71,11 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'verify-email', component: VerifyEmailComponent },
 
+
+  // Home Route
+  { path: 'home', component: HomeComponent },
+
   // Default Route
-  { path: '', redirectTo: '/active-propiedad', pathMatch: 'full' },
-  { path: '**', redirectTo: '/arrendador' }, // Ruta por defecto para rutas no encontradas.
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', redirectTo: '/home' }, // Ruta por defecto para rutas no encontradas.
 ];
