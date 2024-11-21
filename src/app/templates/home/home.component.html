@@ -23,17 +23,18 @@
   
     <!-- Property Listings Section -->
     <section class="property-listings">
-      <h2>Propiedades destacadas</h2>
-      <div class="properties">
-        <div class="property-card" *ngFor="let property of properties">
-          <img [src]="property.image" alt="Imagen de la propiedad" />
-          <h3>{{ property.title }}</h3>
-          <p>{{ property.description }}</p>
-          <p class="price"><strong>{{ property.price }}</strong></p>
-          <button>Ver Detalles</button>
+        <h2>Propiedades destacadas</h2>
+        <div class="properties">
+          <div class="property-card" *ngFor="let property of properties">
+            <img [src]="property.image" alt="Imagen de la propiedad" />
+            <h3>{{ property.title }}</h3>
+            <p>{{ property.description }}</p>
+            <p class="price"><strong>{{ property.price }}</strong></p>
+            <button>Ver Detalles</button>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      
   
     <!-- Featured Info Section -->
     <section class="info-section">
