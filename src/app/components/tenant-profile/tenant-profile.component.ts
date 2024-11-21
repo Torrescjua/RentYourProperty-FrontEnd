@@ -51,7 +51,10 @@ export class TenantProfileComponent implements OnInit {
   ngOnInit(): void {
     // Fetch user info
     this.userName$ = this.userService.userState$.pipe(
-      map((user) => (user ? user.name : ''))
+      map((user) => {
+        console.log(user); // Log the user object to check its structure
+        return user ? user.name : '';
+      })
     );
 
     // Fetch user role and check if the user is a landlord (ARRENDATARIO)
