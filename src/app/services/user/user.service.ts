@@ -72,7 +72,9 @@ export class UserService {
       })
     );
   }
-
+  getCurrentUser(): User | null {
+    return this.userSubject.value; // Returns the current value of the user from BehaviorSubject
+  }
   // Log out the user and clear the user state
   logout(): void {
     localStorage.removeItem('user'); // Remove from localStorage
@@ -80,9 +82,9 @@ export class UserService {
   }
 
   private redirectBasedOnRole(role: string): void {
-    if (role === 'ARRENDADOR') {
-      this.router.navigate(['/Arrendador']);
-    } else if (role === 'ARRENDATARIO') {
+    if (role === 'ARRENDATARIO') {
+      this.router.navigate(['/Arrendatario']);
+    } else {
       this.router.navigate(['/active-propiedad']);
     }
   }

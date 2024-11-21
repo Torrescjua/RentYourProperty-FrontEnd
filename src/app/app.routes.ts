@@ -58,7 +58,7 @@ export const routes: Routes = [
 
   // Landlord Routes
   {
-    path: 'Arrendador',
+    path: 'Arrendatario',
     component: LandlordProfileComponent,
     canActivate: [AuthGuard],
   },
