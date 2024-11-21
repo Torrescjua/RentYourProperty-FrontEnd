@@ -54,13 +54,6 @@ export class LandlordProfileComponent implements OnInit {
     this.userName$ = this.userService.userState$.pipe(
       map((user) => (user ? user.name : ''))
     );
-
-    // If there's no user, redirect to the login page
-    this.userService.userState$.subscribe((user) => {
-      if (!user) {
-        this.router.navigate(['/login']);
-      }
-    });
   }
 
   setActiveSection(section: string) {

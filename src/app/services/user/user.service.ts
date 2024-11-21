@@ -83,9 +83,9 @@ export class UserService {
 
   private redirectBasedOnRole(role: string): void {
     if (role === 'ARRENDATARIO') {
-      this.router.navigate(['/Arrendatario']);
+      this.router.navigate(['/arrendatario']);
     } else {
-      this.router.navigate(['/active-propiedad']);
+      this.router.navigate(['/arrendador']);
     }
   }
 }

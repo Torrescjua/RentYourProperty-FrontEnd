@@ -1,0 +1,55 @@
+<header>
+  <nav class="navbar">
+    <ul class="nav-links">
+      <li><a (click)="setActiveSection('dashboard')">Inicio</a></li>
+      <li><a (click)="setActiveSection('requests')">Solicitudes</a></li>
+      <li>
+        <a (click)="setActiveSection('request-create')">Crear Solicitud</a>
+      </li>
+      <li><a (click)="setActiveSection('properties')">Mis Propiedades</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="welcome-section">
+  <h1>Bienvenido, {{ userName$ }}</h1>
+  <p>
+    Este es tu panel de control como arrendatario. Aquí puedes gestionar tus
+    solicitudes.
+  </p>
+</section>
+
+<section class="dashboard-section">
+  <h2>Panel de Control del Arrendador</h2>
+  <div class="dashboard-cards">
+    <div class="dashboard-card" (click)="setActiveSection('requests')">
+      <h3>Solicitudes Pendientes</h3>
+      <p>Revisa y gestiona tus solicitudes de arrendamiento.</p>
+      <button>Ver Solicitudes</button>
+    </div>
+
+    <div class="dashboard-card" (click)="setActiveSection('request-create')">
+      <h3>Crear Nueva Solicitud</h3>
+      <p>Crea una nueva solicitud de arrendamiento para una propiedad.</p>
+      <button>Crear Solicitud</button>
+    </div>
+
+    <div class="dashboard-card" (click)="setActiveSection('properties')">
+      <h3>Mis Propiedades</h3>
+      <p>Consulta todas tus propiedades activas.</p>
+      <button>Ver Propiedades</button>
+    </div>
+  </div>
+</section>
+
+<section class="content">
+  <div *ngIf="activeSection === 'requests'" @fadeAnimation>
+    <app-rental-request-list></app-rental-request-list>
+  </div>
+  <div *ngIf="activeSection === 'request-create'" @fadeAnimation>
+    <app-request-create></app-request-create>
+  </div>
+  <div *ngIf="activeSection === 'properties'" @fadeAnimation>
+    <app-active-properties></app-active-properties>
+  </div>
+</section>

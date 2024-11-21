@@ -19,16 +19,19 @@
 </div>
 
 <div *ngIf="selectedProperty">
-  <h2>Detalles de la Propiedad</h2>
-  <p>Nombre: {{ selectedProperty.name }}</p>
-  <p>Ubicación: {{ selectedProperty.location }}</p>
-  <p>Descripción: {{ selectedProperty.description }}</p>
-  <p>Municipio: {{ selectedProperty.municipality }}</p>
-  <p>Departamento: {{ selectedProperty.department}}</p>
-  <p>Habitaciones: {{ selectedProperty.rooms}}</p>
-  <p>Baños: {{ selectedProperty.bathrooms}}</p>
-  <p>Piscina: {{ selectedProperty.hasPool}}</p>
-  <p>BBQ: {{ selectedProperty.hasBBQ}}</p>
-  <p>Mascotas: {{ selectedProperty.allowsPets}}</p>
-  <p>Costo: {{ selectedProperty.nightlyRate}}</p>
+  <h2 class="property-title">Detalles de la Propiedad</h2>
+  <div class="property-details">
+    <p><strong>Nombre:</strong> {{ selectedProperty.name }}</p>
+    <p><strong>Ubicación:</strong> {{ selectedProperty.location }}</p>
+    <p><strong>Descripción:</strong> {{ selectedProperty.description }}</p>
+    <p><strong>Municipio:</strong> {{ selectedProperty.municipality }}</p>
+    <p><strong>Departamento:</strong> {{ selectedProperty.department }}</p>
+    <p><strong>Habitaciones:</strong> {{ selectedProperty.rooms }}</p>
+    <p><strong>Baños:</strong> {{ selectedProperty.bathrooms }}</p>
+    <p><strong>Piscina:</strong> {{ selectedProperty.hasPool ? 'Sí' : 'No' }}</p>
+    <p><strong>BBQ:</strong> {{ selectedProperty.hasBBQ ? 'Sí' : 'No' }}</p>
+    <p><strong>Mascotas:</strong> {{ selectedProperty.allowsPets ? 'Sí' : 'No' }}</p>
+    <p><strong>Costo:</strong> {{ selectedProperty.nightlyRate | currency }}</p>
+  </div>
 </div>
+

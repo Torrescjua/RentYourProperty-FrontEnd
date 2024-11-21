@@ -12,6 +12,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { VerifyEmailComponent } from './auth/verify-email/verify-email.component';
 import { AuthGuard } from './guards/auth.guard'; // Suponiendo que tienes un AuthGuard implementado.
+import { TenantProfileComponent } from './components/tenant-profile/tenant-profile.component';
 
 export const routes: Routes = [
   // Property Routes
@@ -37,18 +38,6 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
 
-  // Rental Request Routes
-  {
-    path: 'crear-solicitud',
-    component: RequestCreateComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'solicitudes/:userId',
-    component: RentalRequestListComponent,
-    canActivate: [AuthGuard],
-  },
-
   // Payment Routes
   {
     path: 'payments/pay/:rentalRequestId',
@@ -58,8 +47,14 @@ export const routes: Routes = [
 
   // Landlord Routes
   {
-    path: 'Arrendatario',
+    path: 'arrendatario',
     component: LandlordProfileComponent,
+    canActivate: [AuthGuard],
+  },
+  // Tenant Routes
+  {
+    path: 'arrendador',
+    component: TenantProfileComponent,
     canActivate: [AuthGuard],
   },
 
@@ -77,5 +72,5 @@ export const routes: Routes = [
 
   // Default Route
   { path: '', redirectTo: '/active-propiedad', pathMatch: 'full' },
-  { path: '**', redirectTo: '/active-propiedad' }, // Ruta por defecto para rutas no encontradas.
+  { path: '**', redirectTo: '/arrendador' }, // Ruta por defecto para rutas no encontradas.
 ];
