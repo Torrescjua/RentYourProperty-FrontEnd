@@ -48,13 +48,13 @@ export const routes: Routes = [
 
   // Landlord Routes
   {
-    path: 'arrendatario',
+    path: 'arrendador',
     component: LandlordProfileComponent,
     canActivate: [AuthGuard],
   },
   // Tenant Routes
   {
-    path: 'arrendador',
+    path: 'arrendatario',
     component: TenantProfileComponent,
     canActivate: [AuthGuard],
   },
@@ -71,11 +71,10 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'verify-email', component: VerifyEmailComponent },
 
-
   // Home Route
   { path: 'home', component: HomeComponent },
 
   // Default Route
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: '**', redirectTo: '/home' }, // Ruta por defecto para rutas no encontradas.
+  { path: '', redirectTo: '/arrendatario', pathMatch: 'full' },
+  { path: '**', redirectTo: '/arrendatario' }, // Ruta por defecto para rutas no encontradas.
 ];

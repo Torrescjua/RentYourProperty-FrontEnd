@@ -61,6 +61,10 @@ export class UserService {
     return this.http.get<boolean>(`${this.apiUrl}/${userId}/is-landlord`);
   }
 
+  isUserRoleLandlord(role: String): boolean {
+    return role === 'ARRENDADOR';
+  }
+
   // Log in the user and update the user state
   login(user: User): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, user).pipe(
@@ -72,6 +76,7 @@ export class UserService {
       })
     );
   }
+
   getCurrentUser(): User | null {
     return this.userSubject.value; // Returns the current value of the user from BehaviorSubject
   }
@@ -82,10 +87,10 @@ export class UserService {
   }
 
   private redirectBasedOnRole(role: string): void {
-    if (role === 'ARRENDATARIO') {
-      this.router.navigate(['/arrendatario']);
-    } else {
+    if (this.isUserRoleLandlord(role)) {
       this.router.navigate(['/arrendador']);
+    } else {
+      this.router.navigate(['/arrendatario']);
     }
   }
 }

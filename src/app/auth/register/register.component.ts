@@ -23,19 +23,19 @@ export class RegisterComponent {
 
   onSubmit() {
     console.log('Formulario de registro enviado con datos:', this.user);
-  
+
     this.userService.register(this.user).subscribe(
       (response: any) => {
         console.log('Usuario registrado:', response);
-  
+
         // Verificar si estamos en un entorno del navegador
         if (typeof window !== 'undefined' && localStorage) {
           // Guardar usuario en localStorage
           localStorage.setItem('user', JSON.stringify(response));
         }
-  
+
         // Redirigir según el rol
-        if (response.role === 'ARRENDADOR') {
+        if (this.userService.isUserRoleLandlord(response.role)) {
           this.router.navigate(['/arrendador']);
         } else if (response.role === 'ARRENDATARIO') {
           this.router.navigate(['/arrendatario']);
@@ -47,6 +47,4 @@ export class RegisterComponent {
       }
     );
   }
-  
-  
 }

@@ -61,6 +61,13 @@ export class TenantProfileComponent implements OnInit {
     this.userRole$ = this.userService.userState$.pipe(
       map((user) => (user ? user.role : ''))
     );
+
+    // Check if the user is a landlord
+    this.userRole$.subscribe((role) => {
+      if (this.userService.isUserRoleLandlord(role)) {
+        this.router.navigate(['/arrendador']); // Redirect to the landlord route
+      }
+    });
   }
 
   setActiveSection(section: string): void {
