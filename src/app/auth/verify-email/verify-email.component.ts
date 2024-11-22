@@ -14,7 +14,7 @@ export class VerifyEmailComponent implements OnInit {
     // Puedes agregar lógica aquí si es necesario
     // Por ejemplo, redirigir después de unos segundos
     setTimeout(() => {
-      this.router.navigate(['/']);
+      this.router.navigate(['/home']);
     }, 10000);
   }
 }

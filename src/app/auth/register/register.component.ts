@@ -36,9 +36,9 @@ export class RegisterComponent {
 
         // Redirigir según el rol
         if (this.userService.isUserRoleLandlord(response.role)) {
-          this.router.navigate(['/arrendador']);
+          this.router.navigate(['verify-email']);
         } else if (response.role === 'ARRENDATARIO') {
-          this.router.navigate(['/arrendatario']);
+          this.router.navigate(['verify-email']);
         }
       },
       (error: any) => {
