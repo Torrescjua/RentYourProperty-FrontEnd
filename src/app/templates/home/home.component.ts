@@ -32,17 +32,17 @@ export class HomeComponent {
 
   infoCards = [
     {
-      icon: 'assets/icons/easy-search.svg',
+      icon: 'assets/icons/buscar.png',
       title: 'Búsqueda fácil',
       description: 'Filtra y encuentra tu inmueble ideal en pocos clics.',
     },
     {
-      icon: 'assets/icons/secure-payments.svg',
+      icon: 'assets/icons/pago.png',
       title: 'Pagos seguros',
       description: 'Realiza transacciones confiables y protegidas.',
     },
     {
-      icon: 'assets/icons/best-deals.svg',
+      icon: 'assets/icons/etiqueta.png',
       title: 'Mejores precios',
       description: 'Accede a propiedades con precios competitivos.',
     },

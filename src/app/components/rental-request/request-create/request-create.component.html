@@ -52,13 +52,17 @@
           </option>
         </select>
       </div>
+
+      <!-- Automatically select the current user -->
       <div class="form-group">
         <label>Cliente:</label>
-        <select [(ngModel)]="rentalRequest.userId" name="userId" required>
-          <option *ngFor="let user of users" [value]="user.id">
-            {{ user.name }} {{ user.lastName }} (ID: {{ user.id }})
-          </option>
-        </select>
+        <input
+          type="text"
+          [value]="
+            currentUserName ? currentUserName + ' (ID: ' + currentUserId + ')' : ''
+          "
+          disabled
+        />
       </div>
     </div>
 

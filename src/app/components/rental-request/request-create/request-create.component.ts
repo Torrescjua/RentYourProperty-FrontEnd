@@ -25,11 +25,12 @@ export class RequestCreateComponent implements OnInit {
 
   properties: Property[] = [];
   searchResults: Property[] = [];
-  users: User[] = [];
   message: string = '';
   searchQuery: string = '';
   isMunicipalitySearch: boolean = false;
   isResultsVisible: boolean = false;
+  currentUserId: number | null | undefined = undefined;
+  currentUserName: string | null | undefined = undefined;
 
   constructor(
     private rentalRequestService: RentalRequestService,
@@ -38,6 +39,19 @@ export class RequestCreateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Retrieve the current user using getCurrentUser()
+    const currentUser = this.userService.getCurrentUser();
+
+    if (currentUser) {
+      // If currentUser is not null, set currentUserId
+      this.currentUserId = currentUser.id;
+      this.currentUserName = currentUser.name;
+      this.rentalRequest.userId = this.currentUserId!; // Set userId for rentalRequest
+    } else {
+      // Handle the case where the user is null
+      console.error('No current user found');
+    }
+
     // Load available properties for a specific municipality
     this.propertyService.getPropertiesByMunicipality('Barranquilla').subscribe(
       (data) => {
@@ -45,16 +59,6 @@ export class RequestCreateComponent implements OnInit {
       },
       (error) => {
         console.error('Error loading properties', error);
-      }
-    );
-
-    // Load users with the ARRENDATARIO role
-    this.userService.getUsersByRole('ARRENDATARIO').subscribe(
-      (data) => {
-        this.users = data;
-      },
-      (error) => {
-        console.error('Error loading users', error);
       }
     );
   }
@@ -113,7 +117,7 @@ export class RequestCreateComponent implements OnInit {
     // Submit the rental request to the backend using userId and propertyId
     this.rentalRequestService
       .createRentalRequest(
-        this.rentalRequest.userId,
+        this.rentalRequest.userId, // Use currentUserId here
         this.rentalRequest.propertyId
       )
       .subscribe(

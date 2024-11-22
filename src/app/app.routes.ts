@@ -75,6 +75,6 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent },
 
   // Default Route
-  { path: '', redirectTo: '/arrendatario', pathMatch: 'full' },
-  { path: '**', redirectTo: '/arrendatario' }, // Ruta por defecto para rutas no encontradas.
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', redirectTo: '/home' }, // Ruta por defecto para rutas no encontradas.
 ];
